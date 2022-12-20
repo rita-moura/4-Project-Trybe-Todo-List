@@ -10,8 +10,14 @@ buttonAdd.addEventListener('click', () => {
   inputAdd.value = '';
 });
 
-olList.addEventListener('click', (event) => {
-  if (event.target.tagName === 'LI') {
-    event.target.classList.toggle('done');
+olList.addEventListener('click', ({ target }) => {
+  if (target.tagName === 'LI') {
+    target.classList.toggle('done');
   }
-}, false);
+});
+
+olList.addEventListener('dblclick', ({ target }) => {
+  if (target.tagName === 'LI') {
+    target.classList.toggle('completed');
+  }
+});

@@ -1,5 +1,6 @@
 body {
-  background-color: bisque;
+  background-color: rgb(195 176 197);
+  font-family: sans-serif;
 }
 
 li {
@@ -27,4 +28,9 @@ li {
   margin-top: -1em;
   transform: rotate(45deg);
   width: 0.5em;
+}
+
+.completed {
+  text-decoration: line-through;
+  background: grey;
 }
