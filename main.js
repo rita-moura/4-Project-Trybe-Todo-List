@@ -3,19 +3,41 @@ const buttonAdd = document.getElementById('criar-tarefa');
 const olList = document.getElementById('lista-tarefas');
 const buttonClear = document.getElementById('apaga-tudo');
 const buttonRemoveCompleted = document.getElementById('remover-finalizados');
+const buttonSaveTasks = document.getElementById('salvar-tarefas');
 
 let selectedItem = null;
 
-buttonAdd.addEventListener('click', () => {
+function addTaskToList(taskText) {
   const liList = document.createElement('li');
   liList.classList = 'item-list';
-  liList.innerHTML = inputAdd.value;
+  liList.innerHTML = taskText;
   olList.appendChild(liList);
-  inputAdd.value = '';
+}
+
+function saveTasks() {
+  const tasks = olList.innerHTML;
+  localStorage.setItem('tasks', tasks);
+}
+
+function loadSavedTasks() {
+  const savedTasks = localStorage.getItem('tasks');
+  if (savedTasks) {
+    olList.innerHTML = savedTasks;
+  }
+}
+
+buttonAdd.addEventListener('click', () => {
+  if (inputAdd.value.trim() !== '') {
+    addTaskToList(inputAdd.value);
+    inputAdd.value = '';
+    saveTasks();
+  }
 });
 
 buttonClear.addEventListener('click', () => {
   olList.innerText = '';
+  selectedItem = null;
+  saveTasks();
 });
 
 olList.addEventListener('click', ({ target }) => {
@@ -39,4 +61,11 @@ buttonRemoveCompleted.addEventListener('click', () => {
   completedItems.forEach((item) => {
     olList.removeChild(item);
   });
+  saveTasks();
 });
+
+buttonSaveTasks.addEventListener('click', () => {
+  saveTasks();
+});
+
+loadSavedTasks();
