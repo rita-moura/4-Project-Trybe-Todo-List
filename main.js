@@ -4,6 +4,8 @@ const olList = document.getElementById('lista-tarefas');
 const buttonClear = document.getElementById('apaga-tudo');
 const buttonRemoveCompleted = document.getElementById('remover-finalizados');
 const buttonSaveTasks = document.getElementById('salvar-tarefas');
+const buttonMoveUp = document.getElementById('mover-cima'); // Novo botão
+const buttonMoveDown = document.getElementById('mover-baixo'); // Novo botão
 
 let selectedItem = null;
 
@@ -24,6 +26,24 @@ function loadSavedTasks() {
   if (savedTasks) {
     olList.innerHTML = savedTasks;
   }
+}
+
+function moveItemUp() {
+  if (!selectedItem || selectedItem === olList.firstElementChild) {
+    return; // Caso especial: não há item selecionado ou o item selecionado é o primeiro da lista
+  }
+
+  const prevItem = selectedItem.previousElementSibling;
+  olList.insertBefore(selectedItem, prevItem); // Insere o item selecionado antes do item anterior
+}
+
+function moveItemDown() {
+  if (!selectedItem || selectedItem === olList.lastElementChild) {
+    return; // Caso especial: não há item selecionado ou o item selecionado é o último da lista
+  }
+
+  const nextItem = selectedItem.nextElementSibling;
+  olList.insertBefore(nextItem, selectedItem); // Insere o próximo item antes do item selecionado
 }
 
 buttonAdd.addEventListener('click', () => {
@@ -65,6 +85,16 @@ buttonRemoveCompleted.addEventListener('click', () => {
 });
 
 buttonSaveTasks.addEventListener('click', () => {
+  saveTasks();
+});
+
+buttonMoveUp.addEventListener('click', () => {
+  moveItemUp();
+  saveTasks();
+});
+
+buttonMoveDown.addEventListener('click', () => {
+  moveItemDown();
   saveTasks();
 });
 
