@@ -2,6 +2,8 @@ const inputAdd = document.getElementById('texto-tarefa');
 const buttonAdd = document.getElementById('criar-tarefa');
 const olList = document.getElementById('lista-tarefas');
 const buttonClear = document.getElementById('apaga-tudo');
+const buttonRemoveCompleted = document.getElementById('remover-finalizados');
+
 let selectedItem = null;
 
 buttonAdd.addEventListener('click', () => {
@@ -15,7 +17,6 @@ buttonAdd.addEventListener('click', () => {
 buttonClear.addEventListener('click', () => {
   olList.innerText = '';
 });
-console.log(buttonClear);
 
 olList.addEventListener('click', ({ target }) => {
   if (target.tagName === 'LI') {
@@ -31,4 +32,11 @@ olList.addEventListener('dblclick', ({ target }) => {
   if (target.tagName === 'LI') {
     target.classList.toggle('completed');
   }
+});
+
+buttonRemoveCompleted.addEventListener('click', () => {
+  const completedItems = olList.querySelectorAll('.completed');
+  completedItems.forEach((item) => {
+    olList.removeChild(item);
+  });
 });
