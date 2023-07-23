@@ -6,6 +6,7 @@ const buttonRemoveCompleted = document.getElementById('remover-finalizados');
 const buttonSaveTasks = document.getElementById('salvar-tarefas');
 const buttonMoveUp = document.getElementById('mover-cima'); // Novo botão
 const buttonMoveDown = document.getElementById('mover-baixo'); // Novo botão
+const buttonRemoveSelecteds = document.getElementById('remover-selecionado');
 
 let selectedItem = null;
 
@@ -25,6 +26,14 @@ function loadSavedTasks() {
   const savedTasks = localStorage.getItem('tasks');
   if (savedTasks) {
     olList.innerHTML = savedTasks;
+  }
+}
+
+function removeSelectedItem() {
+  if (selectedItem) {
+    olList.removeChild(selectedItem);
+    selectedItem = null;
+    saveTasks();
   }
 }
 
@@ -96,6 +105,10 @@ buttonMoveUp.addEventListener('click', () => {
 buttonMoveDown.addEventListener('click', () => {
   moveItemDown();
   saveTasks();
+});
+
+buttonRemoveSelecteds.addEventListener('click', () => {
+  removeSelectedItem(); // Chama a função para remover todos os itens selecionados
 });
 
 loadSavedTasks();
